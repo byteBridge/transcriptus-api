@@ -1,0 +1,5 @@
+# ignore the node modules folder
+node_modules
+.env
+.directory
+documentation
