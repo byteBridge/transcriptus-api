@@ -5,7 +5,7 @@ module.exports = (req, res) => {
   userModel.findOne(req.body.username)
     .then(user => {
       if(user == null) return res.status(401).json({message: "user not found"})
-      if (userModel.comparePasswords(user.password, req.body.password) === true) {
+      if (userModel.comparePasswords(req.body.password, user.password) === true) {
         const payload = { username: user.username }
         const token = jwt.sign(payload, process.env.JWT_SECRET)
         res.json({messsage: 'success', token})

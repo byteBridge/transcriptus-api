@@ -14,7 +14,7 @@ module.exports.findOne = (username) => new Promise((resolve, reject) => {
     .catch(err => reject(err))
 })
 
-module.exports.comparePasswords = (dbPass, reqPass) => bcrypt.compareSync(reqPass, dbPass)
+module.exports.comparePasswords = (reqPass, dbPass) => bcrypt.compareSync(reqPass, dbPass)
 
 module.exports.createUser = (req) => new Promise((resolve, reject) => {
   const user = req.body
