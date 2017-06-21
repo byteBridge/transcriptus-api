@@ -13,7 +13,7 @@ module.exports.mount = (app, express) => {
 
 	/* APP MIDDLEWARE */
 	app.use(middleware.allowDomains)
-	if (process.env.NODE_ENV === 'test') { app.use(logger('dev')) }
+	if (process.env.NODE_ENV === 'development') { app.use(logger('dev')) }
 
 	app.use(passport.initialize())
 	app.use(bodyParser.urlencoded({ extended: false }))
