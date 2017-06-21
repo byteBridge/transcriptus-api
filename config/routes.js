@@ -2,8 +2,13 @@
 
 module.exports.mount = app => {
 	const routes = require('../routes')
-	const authRoutes = require('../routes/auth')
+	const {
+		loginRoutes,
+		registerRoutes,
+		secretRoutes
+	} = require('../api/indexRoutes')
 
-	app.use('/', routes)
-	app.use('/auth', authRoutes)
+	app.use('/secret', secretRoutes)
+	app.use('/auth/login', loginRoutes)
+	app.use('/auth/register', registerRoutes)
 }
