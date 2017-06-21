@@ -14,3 +14,10 @@ module.exports.findOne = (username) => new Promise((resolve, reject) => {
 })
 
 module.exports.comparePasswords = (dbPass, reqPass) => dbPass === reqPass
+
+module.exports.createUser = (req) => new Promise((resolve, reject) => {
+  const user = req.body
+  knex('users').insert(user).returning('*')
+    .then(resolve)
+    .catch(reject)
+})
