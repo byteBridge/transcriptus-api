@@ -1,3 +1,4 @@
+const bcrypt = require('bcryptjs')
 const knex = require('../database')
 
 module.exports.findOne = (username) => new Promise((resolve, reject) => {
@@ -13,11 +14,16 @@ module.exports.findOne = (username) => new Promise((resolve, reject) => {
     .catch(err => reject(err))
 })
 
-module.exports.comparePasswords = (dbPass, reqPass) => dbPass === reqPass
+module.exports.comparePasswords = (dbPass, reqPass) => bcrypt.compareSync(reqPass, dbPass)
 
 module.exports.createUser = (req) => new Promise((resolve, reject) => {
   const user = req.body
+  user.password = hashedPassword(user.password)
   knex('users').insert(user).returning('*')
     .then(resolve)
     .catch(reject)
 })
+
+function hashedPassword (password) {
+  return bcrypt.hashSync(password, 10)
+}
