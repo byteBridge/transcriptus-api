@@ -7,6 +7,7 @@ module.exports.mount = (app, express) => {
 	const middleware = require('./middleware')
 	const bodyParser = require('body-parser')
 	const logger = require('morgan')
+	const passport = require('../auth/passport')
 
 	app.set('port', process.env.PORT)
 
@@ -14,6 +15,7 @@ module.exports.mount = (app, express) => {
 	app.use(middleware.allowDomains)
 	if (process.env.NODE_ENV === 'test') { app.use(logger('dev')) }
 
+	app.use(passport.initialize())
 	app.use(bodyParser.urlencoded({ extended: false }))
 	app.use(bodyParser.json())
 }
