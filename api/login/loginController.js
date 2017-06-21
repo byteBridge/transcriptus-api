@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const userModel = require('../models/users')
+const userModel = require('../../models/users')
 
 module.exports = (req, res) => {
   userModel.findOne(req.body.username)
