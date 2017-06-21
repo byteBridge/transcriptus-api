@@ -1,7 +1,6 @@
 'use strict'
 
 module.exports.mount = app => {
-	const routes = require('../routes')
 	const {
 		loginRoutes,
 		registerRoutes,
