@@ -16,8 +16,7 @@ module.exports.findOne = (username) => new Promise((resolve, reject) => {
 
 module.exports.comparePasswords = (reqPass, dbPass) => bcrypt.compareSync(reqPass, dbPass)
 
-module.exports.createUser = (req) => new Promise((resolve, reject) => {
-  const user = req.body
+module.exports.createUser = (user) => new Promise((resolve, reject) => {
   user.password = hashedPassword(user.password)
   knex('users').insert(user).returning('*')
     .then(resolve)
