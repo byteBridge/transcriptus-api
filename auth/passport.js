@@ -4,7 +4,7 @@ const userModel = require('../models/users')
 const { ExtractJwt, Strategy } = passportJwt
 
 let jwtOptions = {}
-jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeader()
+jwtOptions.jwtFromRequest = ExtractJwt.fromUrlQueryParameter('token')
 jwtOptions.secretOrKey = process.env.JWT_SECRET
 
 const strategy = new Strategy(jwtOptions, (jwtPayload, next) => {
