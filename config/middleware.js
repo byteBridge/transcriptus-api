@@ -8,7 +8,7 @@ function handle404 (req, res, next) {
 	Allow the api to be accessed from any domain
 */
 function allowDomains (req, res, next) {
-	res.header('Access-Cross-Allow-Origin', '*')
+	res.header('Access-Control-Allow-Origin', '*')
 	next()
 }
 
