@@ -7,7 +7,7 @@ module.exports.mount = (app, express) => {
 	const middleware = require('./middleware')
 	const bodyParser = require('body-parser')
 	const logger = require('morgan')
-	const passport = require('../auth/passport')
+	const passport = require('../utils/passportService')
 
 	app.set('port', process.env.PORT)
 
