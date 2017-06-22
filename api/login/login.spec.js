@@ -92,5 +92,107 @@ describe('login', () => {
           done()
         })
     })
+
+    it('should fail when a user suplies an invalid username and password', done => {
+      const user = {
+        username: 'wrong_user',
+        password: 'wrong_pass'
+      }
+
+      chai.request(server)
+        .post(loginUrl)     
+        .send(user)
+        .end((err, res) => {
+          should.exist(err)
+          res.redirects.length.should.eql(0)
+          res.status.should.eql(401)
+          res.type.should.eql('application/json')
+          res.body.should.contain.keys('message')
+          res.body.message.should.eql('invalid login details')
+          done()
+        })
+    })
+
+    it('should fail when a user suplies an empty username', done => {
+      const user = {
+        username: '',
+        password: 'paradzayi'
+      }
+
+      chai.request(server)
+        .post(loginUrl)     
+        .send(user)
+        .end((err, res) => {
+          should.exist(err)
+          res.redirects.length.should.eql(0)
+          res.status.should.eql(400)
+          res.type.should.eql('application/json')
+          res.body.should.contain.keys('message', 'error')
+          res.body.message.should.eql('bad request')
+          res.body.error.should.eql("\"username\" is not allowed to be empty")
+          done()
+        })
+    })
+
+    it('should fail when a user suplies an empty password', done => {
+      const user = {
+        username: 'kudakwashe',
+        password: ''
+      }
+
+      chai.request(server)
+        .post(loginUrl)     
+        .send(user)
+        .end((err, res) => {
+          should.exist(err)
+          res.redirects.length.should.eql(0)
+          res.status.should.eql(400)
+          res.type.should.eql('application/json')
+          res.body.should.contain.keys('message', 'error')
+          res.body.message.should.eql('bad request')
+          res.body.error.should.eql("\"password\" is not allowed to be empty")
+          done()
+        })
+    })
+
+    it('should fail when no username param is provided', done => {
+      const user = {
+        password: 'paradzayi'
+      }
+
+      chai.request(server)
+        .post(loginUrl)     
+        .send(user)
+        .end((err, res) => {
+          should.exist(err)
+          res.redirects.length.should.eql(0)
+          res.status.should.eql(400)
+          res.type.should.eql('application/json')
+          res.body.should.contain.keys('message', 'error')
+          res.body.message.should.eql('bad request')
+          res.body.error.should.eql("\"username\" is required")
+          done()
+        })
+    })
+
+     it('should fail when no password param is provided', done => {
+      const user = {
+        username: 'kudakwashe'
+      }
+
+      chai.request(server)
+        .post(loginUrl)     
+        .send(user)
+        .end((err, res) => {
+          should.exist(err)
+          res.redirects.length.should.eql(0)
+          res.status.should.eql(400)
+          res.type.should.eql('application/json')
+          res.body.should.contain.keys('message', 'error')
+          res.body.message.should.eql('bad request')
+          res.body.error.should.eql("\"password\" is required")
+          done()
+        })
+    })
   })
 })
