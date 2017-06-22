@@ -26,3 +26,9 @@ module.exports.createUser = (user) => new Promise((resolve, reject) => {
 function hashedPassword (password) {
   return bcrypt.hashSync(password, 10)
 }
+
+module.exports.getAllUsers = () => new Promise((resolve, reject) => {
+  knex('users').select()
+    .then(resolve)
+    .catch(reject)
+})
