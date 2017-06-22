@@ -1,13 +1,7 @@
 'use strict'
 
 module.exports.mount = app => {
-	const {
-		loginRoutes,
-		registerRoutes,
-		secretRoutes
-	} = require('../api/indexRoutes')
+	const routes = require('../routes')
 
-	app.use('/secret', secretRoutes)
-	app.use('/auth/login', loginRoutes)
-	app.use('/auth/register', registerRoutes)
+	app.use('/', routes)
 }

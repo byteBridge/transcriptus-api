@@ -1,1 +1,0 @@
-module.exports.buildResponse = (res, statusCode, body) => res.status(statusCode).json(body)
