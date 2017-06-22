@@ -44,12 +44,17 @@ describe('login', () => {
         .end((err, res) => {
           should.not.exist(err)
           res.redirects.length.should.eql(0)
+          res.status.should.eql(200)
           res.type.should.eql('application/json')
           res.body.should.contain.keys('token', 'message')
           res.body.token.should.be.a('string')
           res.body.message.should.eql('success')
           done()
         })
+    })
+
+    xit('should fail when a user suplies invalid username', done => {
+      done()
     })
   })
 })
