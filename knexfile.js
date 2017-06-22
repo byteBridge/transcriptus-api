@@ -5,14 +5,14 @@ const pathToDatabase = `${__dirname}/database`
 module.exports = {
   development: {
     client: 'pg',
-    connection: process.env.DEV_DATABASE_URL,
+    connection: "postgres://kudakwashe:admin@localhost:5432/transcriptus",
     migrations: { directory: `${pathToDatabase}/migrations` },
     seeds: { directory: `${pathToDatabase}/seeds` }
   },
 
   test: {
     client: 'pg',
-    connection: process.env.TEST_DATABASE_URL,
+    connection: "postgres://kudakwashe:admin@localhost:5432/transcriptus_test",
     migrations: { directory: `${pathToDatabase}/migrations` },
     seeds: { directory: `${pathToDatabase}/seeds` }
   },
