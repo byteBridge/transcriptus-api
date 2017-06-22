@@ -72,5 +72,25 @@ describe('login', () => {
           done()
         })
     })
+
+    it('should fail when a user suplies an invalid password', done => {
+      const user = {
+        username: 'kudakwashe',
+        password: 'wrong_pass'
+      }
+
+      chai.request(server)
+        .post(loginUrl)     
+        .send(user)
+        .end((err, res) => {
+          should.exist(err)
+          res.redirects.length.should.eql(0)
+          res.status.should.eql(401)
+          res.type.should.eql('application/json')
+          res.body.should.contain.keys('message')
+          res.body.message.should.eql('passwords did not match')
+          done()
+        })
+    })
   })
 })
