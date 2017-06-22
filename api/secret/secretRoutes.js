@@ -2,8 +2,7 @@
 'use strict'
 const passport = require('../../auth/passport')
 const router = require('express').Router()
-router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => {
-	res.json('The fact that you saw tis means you are authenticated')
-})
+const secretController = require('./secretController')
+router.get('/', passport.authenticate('jwt', { session: false }), secretController)
 
 module.exports = router
