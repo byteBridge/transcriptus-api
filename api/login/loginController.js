@@ -8,7 +8,7 @@ module.exports = (req, res) => {
       if (userModel.comparePasswords(req.body.password, user.password) === true) {
         const payload = { username: user.username }
         const token = jwt.sign(payload, process.env.JWT_SECRET)
-        res.json({messsage: 'success', token})
+        res.json({message: 'success', token})
       } else {
         res.status(401).json({message:"passwords did not match"})
       }
