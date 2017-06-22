@@ -1,5 +1,3 @@
-// run this to set the env vars when using knex cli
-require('dotenv').config()
 
 const databaseName = 'transcriptus'
 const pathToDatabase = `${__dirname}/database`
