@@ -11,6 +11,7 @@ const { startServer } = require('../../test')
 
 describe('login', () => {
   let server
+  const loginUrl = '/auth/login'
 
   before(done => {
     startServer(runningServer => { 
@@ -30,4 +31,25 @@ describe('login', () => {
 
   afterEach(() => knex.migrate.rollback())
   
+  describe('POST /login', () => {
+    it('should login a user with success', done => {
+      const user = {
+        username: 'kudakwashe',
+        password: 'paradzayi'
+      }
+
+      chai.request(server)
+        .post(loginUrl)     
+        .send(user)
+        .end((err, res) => {
+          should.not.exist(err)
+          res.redirects.length.should.eql(0)
+          res.type.should.eql('application/json')
+          res.body.should.contain.keys('token', 'message')
+          res.body.token.should.be.a('string')
+          res.body.message.should.eql('success')
+          done()
+        })
+    })
+  })
 })
