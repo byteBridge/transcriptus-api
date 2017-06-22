@@ -1,19 +1,22 @@
 const jwt = require('jsonwebtoken')
 const userModel = require('../../models/users')
+const { buildResponse } = require('../../utils/responseService')
 
 module.exports = (req, res) => {
   userModel.findOne(req.body.username)
     .then(user => {
-      if(user == null) return res.status(401).json({message: "user not found"})
+      if(user == null) return buildResponse(res, 401, { message: "user not found" })
+
       if (userModel.comparePasswords(req.body.password, user.password) === true) {
         const payload = { username: user.username }
         const token = jwt.sign(payload, process.env.JWT_SECRET)
-        res.json({message: 'success', token})
+        buildResponse(res, 200, { message: 'success', token })
       } else {
-        res.status(401).json({message:"passwords did not match"})
+        buildResponse(res, 401, { message:"passwords did not match" })
       }
     })
+
     .catch(err => {
-      res.status(500).json({message:"Internal server error"})
+      buildResponse(res, 500, { message:"Internal server error" })
     })
 }
