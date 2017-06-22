@@ -1,22 +1,16 @@
 const jwt = require('jsonwebtoken')
 const userModel = require('../../models/users')
 const { buildResponse } = require('../../utils/responseService')
+const validator = require('./loginValidation')
 
 module.exports = (req, res) => {
-  userModel.findOne(req.body.username)
-    .then(user => {
-      if(user == null) return buildResponse(res, 401, { message: "user not found" })
+    const {error, value} = validator.validate(req.body)
+    if (error) return buildResponse(res, 400, { message: 'bad request', error: error.details[0].message})
 
-      if (userModel.comparePasswords(req.body.password, user.password) === true) {
-        const payload = { username: user.username }
-        const token = jwt.sign(payload, process.env.JWT_SECRET)
-        buildResponse(res, 200, { message: 'success', token })
-      } else {
-        buildResponse(res, 401, { message:"passwords did not match" })
-      }
-    })
-
-    .catch(err => {
-      buildResponse(res, 500, { message:"Internal server error" })
-    })
+    userModel.login(value.username, value.password)
+      .then(token => buildResponse(res, 200, { message: 'success', token }))
+      .catch(error => {
+        if (error && error.status === 401) return buildResponse(res, 401, { message: 'invalid login details' })
+        buildResponse(res, 500, { message: 'Internal server error'})
+      })
 }
