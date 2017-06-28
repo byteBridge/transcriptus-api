@@ -1,6 +1,5 @@
-const bcrypt = require('bcryptjs')
+const { hashedPassword, comparePasswords, generateToken } = require('../utils/authService')
 const knex = require('../database')
-const jwt = require('jsonwebtoken')
 
 function findOne (username) {
   return new Promise((resolve, reject) => {
@@ -17,9 +16,7 @@ function findOne (username) {
   })
 }
 
-function comparePasswords (reqPass, dbPass) {
-  return bcrypt.compareSync(reqPass, dbPass) 
-}
+
 
 function createUser (user) {
   return new Promise((resolve, reject) => {
@@ -30,13 +27,6 @@ function createUser (user) {
   })
 }
 
-function hashedPassword (password) {
-  return bcrypt.hashSync(password, 10)
-}
-
-function generateToken (payload) {
-  return jwt.sign(payload, process.env.JWT_SECRET)
-}
 
 function getAllUsers () {
   return new Promise((resolve, reject) => {
@@ -69,7 +59,6 @@ function login (username, password) {
 }
 
 module.exports = {
-  comparePasswords,
   findOne,
   createUser,
   login,
