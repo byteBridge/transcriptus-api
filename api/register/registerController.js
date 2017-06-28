@@ -1,24 +1,25 @@
 const userModel = require('../../models/users')
 const validator = require('./registerValidation')
+const { buildResponse } = require('../../utils/responseService') 
 
 module.exports = (req, res) => {
   const {error, value} = validator.validate(req.body)
   if (error) {
-    return res.status(400).json({ message: error.details[0].message})
+    buildResponse(res, 400, { message: error.details[0].message })
   }
 
   userModel.findOne(value.username)
     .then(user => {
       if (user) {
-        res.status(403).json({message: 'user already exists'})
+        buildResponse(res, 403, { message: 'user already exists' })
       } else {
          userModel.createUser(value)
           .then(user => {
-            res.status(200).json({message: 'successfully created user.', user})
+            buildResponse(res, 200, { message: 'successfully created user.', user })
           })
 
           .catch(error => {
-            res.status(500).json({message: 'something happened', error})
+            buildResponse(res, 500, { message: 'something happened', error })
           })
       }
     })
