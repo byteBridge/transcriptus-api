@@ -5,7 +5,7 @@ const { buildResponse } = require('../../utils/responseService')
 module.exports = (req, res) => {
   const {error, value} = validator.validate(req.body)
   if (error) {
-    buildResponse(res, 400, { message: error.details[0].message })
+    return buildResponse(res, 400, { message: error.details[0].message })
   }
 
   userModel.findOne(value.username)
