@@ -11,7 +11,7 @@ module.exports = (req, res) => {
   userModel.findOne(value.username)
     .then(user => {
       if (user) {
-        buildResponse(res, 403, { message: 'user already exists' })
+        buildResponse(res, 422, { message: 'user already exists' })
       } else {
          userModel.createUser(value)
           .then(user => {
