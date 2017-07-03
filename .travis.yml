@@ -9,7 +9,7 @@ services:
   - postgresql
 
 before_script:
-  - sudo apt-get install postgresql postgresql-contrib
+  - sudo apt-get install postgresql-9.5 postgresql-contrib
   - psql -c 'create database travis;' -U postgres
 
 env:
