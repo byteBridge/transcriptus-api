@@ -8,6 +8,7 @@ addons:
   postgresql: "9.5"
 
 before_script:
+  - sudo systemctl start postgresql
   - psql -c 'create database travis_ci_test;' -U postgres
   - mkdir config && cp database.travis.yml config/database.yml
   - export TEST_DATABASE_URL="postgres://postgres:test_password@localhost:5432/travis_ci_test"
