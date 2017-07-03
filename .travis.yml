@@ -8,10 +8,10 @@ addons:
   postgresql: "9.5"
 
 before_script:
-  - psql -c 'create database travis_ci_test;' -U postgres
+  - psql -c 'create database travis;' -U postgres
 
 env:
   global:
-    - TEST_DATABASE_URL="postgres://postgres@localhost:5432/travis_ci_test"
+    - TEST_DATABASE_URL="postgres://postgres@localhost:5432/travis"
     - JWT_SECRET="some-super-secure-secret-i-will-never-use-in-production"
     - PORT="3000"
