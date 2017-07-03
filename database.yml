@@ -2,3 +2,5 @@ test:
   adapter: postgresql
   username: postgres
   database: travis
+  host: localhost
+  port: 5432
