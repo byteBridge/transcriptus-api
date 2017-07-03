@@ -12,7 +12,7 @@ module.exports = {
 
   test: {
     client: 'pg',
-    connection: "postgres://kudakwashe:admin@localhost:5432/transcriptus_test",
+    connection: process.env.TEST_DATABASE_URL,
     migrations: { directory: `${pathToDatabase}/migrations` },
     seeds: { directory: `${pathToDatabase}/seeds` }
   },
