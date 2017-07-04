@@ -45,7 +45,7 @@ function login (username, password) {
           if (comparePasswords(password, user[0].password) === true) {
             return resolve(generateToken({
               username: user[0].username,
-              exp: moment().add(24, 'h').unix()
+              exp: moment().add(7, 'd').unix()
             }))
           } else {
             //invalid password
