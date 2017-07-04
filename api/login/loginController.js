@@ -4,6 +4,11 @@ const { buildResponse } = require('../../utils/responseService')
 const validator = require('./loginValidation')
 
 module.exports = (req, res) => {
+    // extra security layer. Client should not cache the request
+    // only for the /login route
+    res.header('Cache-Control', 'no-store')
+      .header('Pragma', 'no-store')
+
     const {error, value} = validator.validate(req.body)
     if (error) return buildResponse(res, 400, { message: 'bad request', error: error.details[0].message})
 
