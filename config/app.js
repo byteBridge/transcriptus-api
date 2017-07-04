@@ -4,7 +4,7 @@ module.exports.mount = (app, express) => {
  	// Before anything, congigure the process enmvironment
 	require('./init').setEnvironment()
 
-	const middleware = require('./middleware')
+	const { allowDomains } = require('../utils/middlewareService')
 	const bodyParser = require('body-parser')
 	const logger = require('morgan')
 	const helmet = require('helmet')
@@ -12,7 +12,7 @@ module.exports.mount = (app, express) => {
 	app.set('port', process.env.PORT)
 
 	/* APP MIDDLEWARE */
-	app.use(middleware.allowDomains)
+	app.use(allowDomains)
 	if (process.env.NODE_ENV === 'development') { app.use(logger('dev')) }
 
 	// some protection via setting appropriate headers

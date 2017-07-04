@@ -1,7 +1,7 @@
 'use strict'
 
 module.exports.mount = app => {
-	const middleware = require('./middleware')
+	const { handle404 } = require('../utils/middlewareService')
 	
-	app.use(middleware.handle404)
+	app.use(handle404)
 }
