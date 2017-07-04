@@ -17,6 +17,13 @@ function generateToken (payload) {
 }
 
 /**
+ * Verify the token. Verifies validity (tamper and expiry)
+ */
+function verifyToken (token, secretOrKey, options, callback) { 
+  return jwt.verify(token, secretOrKey, options, callback)
+}
+
+/**
  * Hash the password for secure storage in the database 
  */
 function hashedPassword (password) {
@@ -26,5 +33,6 @@ function hashedPassword (password) {
 module.exports = {
   comparePasswords,
   generateToken,
+  verifyToken,
   hashedPassword
 }
