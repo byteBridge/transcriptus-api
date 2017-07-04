@@ -1,5 +1,6 @@
 const { hashedPassword, comparePasswords, generateToken } = require('../utils/authService')
 const knex = require('../database')
+const moment = require('moment')
 
 function findOne (username) {
   return new Promise((resolve, reject) => {
@@ -42,7 +43,10 @@ function login (username, password) {
       .then(user => {
         if (user.length) {
           if (comparePasswords(password, user[0].password) === true) {
-            return resolve(generateToken({ username: user[0].username }))
+            return resolve(generateToken({
+              username: user[0].username,
+              exp: moment().add(24, 'h').unix()
+            }))
           } else {
             //invalid password
             reject({ status: 401 })
