@@ -49,6 +49,12 @@ describe('login', () => {
           res.body.should.contain.keys('token', 'message')
           res.body.token.should.be.a('string')
           res.body.message.should.eql('success')
+
+          // test for appropriate headers
+          should.exist(res.header['cache-control'])
+          should.exist(res.header['pragma'])
+          res.header['cache-control'].should.eql('no-store')
+          res.header['pragma'].should.eql('no-store')
           done()
         })
     })
@@ -69,6 +75,12 @@ describe('login', () => {
           res.type.should.eql('application/json')
           res.body.should.contain.keys('message')
           res.body.message.should.eql('invalid login details')
+
+          // test for appropriate headers
+          should.exist(res.header['cache-control'])
+          should.exist(res.header['pragma'])
+          res.header['cache-control'].should.eql('no-store')
+          res.header['pragma'].should.eql('no-store')
           done()
         })
     })
@@ -89,6 +101,12 @@ describe('login', () => {
           res.type.should.eql('application/json')
           res.body.should.contain.keys('message')
           res.body.message.should.eql('invalid login details')
+
+          // test for appropriate headers
+          should.exist(res.header['cache-control'])
+          should.exist(res.header['pragma'])
+          res.header['cache-control'].should.eql('no-store')
+          res.header['pragma'].should.eql('no-store')
           done()
         })
     })
@@ -109,6 +127,12 @@ describe('login', () => {
           res.type.should.eql('application/json')
           res.body.should.contain.keys('message')
           res.body.message.should.eql('invalid login details')
+
+          // test for appropriate headers
+          should.exist(res.header['cache-control'])
+          should.exist(res.header['pragma'])
+          res.header['cache-control'].should.eql('no-store')
+          res.header['pragma'].should.eql('no-store')
           done()
         })
     })
@@ -130,6 +154,12 @@ describe('login', () => {
           res.body.should.contain.keys('message', 'error')
           res.body.message.should.eql('bad request')
           res.body.error.should.eql("\"username\" is not allowed to be empty")
+
+          // test for appropriate headers
+          should.exist(res.header['cache-control'])
+          should.exist(res.header['pragma'])
+          res.header['cache-control'].should.eql('no-store')
+          res.header['pragma'].should.eql('no-store')
           done()
         })
     })
@@ -151,6 +181,12 @@ describe('login', () => {
           res.body.should.contain.keys('message', 'error')
           res.body.message.should.eql('bad request')
           res.body.error.should.eql("\"password\" is not allowed to be empty")
+
+          // test for appropriate headers
+          should.exist(res.header['cache-control'])
+          should.exist(res.header['pragma'])
+          res.header['cache-control'].should.eql('no-store')
+          res.header['pragma'].should.eql('no-store')
           done()
         })
     })
@@ -171,6 +207,12 @@ describe('login', () => {
           res.body.should.contain.keys('message', 'error')
           res.body.message.should.eql('bad request')
           res.body.error.should.eql("\"username\" is required")
+
+          // test for appropriate headers
+          should.exist(res.header['cache-control'])
+          should.exist(res.header['pragma'])
+          res.header['cache-control'].should.eql('no-store')
+          res.header['pragma'].should.eql('no-store')
           done()
         })
     })
@@ -191,6 +233,12 @@ describe('login', () => {
           res.body.should.contain.keys('message', 'error')
           res.body.message.should.eql('bad request')
           res.body.error.should.eql("\"password\" is required")
+
+          // test for appropriate headers
+          should.exist(res.header['cache-control'])
+          should.exist(res.header['pragma'])
+          res.header['cache-control'].should.eql('no-store')
+          res.header['pragma'].should.eql('no-store')
           done()
         })
     })
